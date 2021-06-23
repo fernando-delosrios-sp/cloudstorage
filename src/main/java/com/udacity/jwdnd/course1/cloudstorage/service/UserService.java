@@ -1,7 +1,7 @@
-package com.udacity.jwdnd.spring_security_basics.service;
+package com.udacity.jwdnd.course1.cloudstorage.service;
 
-import com.udacity.jwdnd.spring_security_basics.mapper.UserMapper;
-import com.udacity.jwdnd.spring_security_basics.model.User;
+import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
+import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

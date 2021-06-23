@@ -1,8 +1,8 @@
-package com.udacity.jwdnd.spring_security_basics.config;
+package com.udacity.jwdnd.course1.cloudstorage.config;
 
-import com.udacity.jwdnd.spring_security_basics.mapper.UserMapper;
-import com.udacity.jwdnd.spring_security_basics.service.AuthenticationService;
-import com.udacity.jwdnd.spring_security_basics.service.HashService;
+import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
+import com.udacity.jwdnd.course1.cloudstorage.service.AuthenticationService;
+import com.udacity.jwdnd.course1.cloudstorage.service.HashService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CloudStorageApplication<cloudstorage>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.udacity.jwdnd.course1.cloudstorage.CloudStorageApplication",
+            "projectName": "cloudstorage",
+            "args": ""
+        }
+    ]
+}

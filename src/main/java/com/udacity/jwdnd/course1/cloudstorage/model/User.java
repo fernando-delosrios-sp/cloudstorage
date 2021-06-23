@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.spring_security_basics.model;
+package com.udacity.jwdnd.course1.cloudstorage.model;
 
 public class User {
     private Integer userId;

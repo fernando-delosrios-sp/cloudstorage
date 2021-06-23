@@ -1,6 +1,6 @@
-package com.udacity.jwdnd.spring_security_basics.mapper;
+package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
-import com.udacity.jwdnd.spring_security_basics.model.User;
+import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
