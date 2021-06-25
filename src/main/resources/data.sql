@@ -1,0 +1,1 @@
+INSERT INTO USERS(username, salt, password, firstname, lastname) VALUES('fdelosrios','J7hnmt2LRH3eLmvsG8osHA==','zNaz4ofkxhBhLEIQG/S+cQ==','Fernando','de los Ríos');

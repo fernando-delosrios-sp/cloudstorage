@@ -38,4 +38,12 @@ public class SignupPage {
         this.lastname.sendKeys(lastname);
         this.submit.click();
     }
+
+    public boolean isSuccess() {
+        return success != null;
+    }
+
+    public boolean isError() {
+        return error != null;
+    }
 }

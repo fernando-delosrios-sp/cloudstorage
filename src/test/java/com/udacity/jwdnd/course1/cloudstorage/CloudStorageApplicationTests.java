@@ -9,6 +9,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CloudStorageApplicationTests {
+	private SignupPage signupPage;
 
 	@LocalServerPort
 	private int port;
@@ -48,5 +49,12 @@ class CloudStorageApplicationTests {
 	public void getLoginPage() {
 		driver.get("http://localhost:" + this.port + "/login");
 		Assertions.assertEquals("Login", driver.getTitle());
+	}
+
+	public void signupOK() {
+		driver.get("http://localhost:" + this.port + "/signup");
+		signupPage = new SignupPage(driver);
+		signupPage.Signup("username", "password", "firstname", "lastname");
+		Assertions.assertTrue(signupPage.isSuccess());
 	}
 }
