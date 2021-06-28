@@ -8,13 +8,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CloudStorageApplicationTests {
+class SignupTest {
 	private SignupPage signupPage;
 
 	@LocalServerPort
-	private int port;
+	protected int port;
 
-	private WebDriver driver;
+	protected WebDriver driver;
+
+	protected void loadPage(String path) {
+		String url = "http://localhost:" + port + path;
+		driver.get(url);
+	}
 
 	@BeforeAll
 	static void beforeAll() {
@@ -41,20 +46,23 @@ class CloudStorageApplicationTests {
 
 	@Test
 	public void getSignupPage() {
-		driver.get("http://localhost:" + this.port + "/signup");
+		loadPage("/signup");
 		Assertions.assertEquals("Sign Up", driver.getTitle());
 	}
 
 	@Test
-	public void getLoginPage() {
-		driver.get("http://localhost:" + this.port + "/login");
-		Assertions.assertEquals("Login", driver.getTitle());
-	}
-
 	public void signupOK() {
-		driver.get("http://localhost:" + this.port + "/signup");
+		loadPage("/signup");
 		signupPage = new SignupPage(driver);
 		signupPage.Signup("username", "password", "firstname", "lastname");
 		Assertions.assertTrue(signupPage.isSuccess());
+	}
+
+	@Test
+	public void signupKO() {
+		loadPage("/signup");
+		signupPage = new SignupPage(driver);
+		signupPage.Signup("username", "", "firstname", "lastname");
+		Assertions.assertTrue(signupPage.isError());
 	}
 }

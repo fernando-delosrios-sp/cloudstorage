@@ -26,12 +26,12 @@ public class FileService {
         this.fileMapper = fileMapper;
     }
 
-    public void saveFile(MultipartFile filedata, Integer userId) {
+    public void save(MultipartFile filedata, Integer userId) {
         try {
             Blob blob = new SerialBlob(filedata.getBytes());
             byte bytes [] = blob.getBytes(1, (int) blob.length());
             File file = new File(filedata.getOriginalFilename(), filedata.getContentType(), String.valueOf(filedata.getSize()), userId, bytes);
-            fileMapper.saveFile(file);
+            fileMapper.save(file);
         } catch (SerialException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -42,5 +42,17 @@ public class FileService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public File[] list(Integer userId) {
+        return fileMapper.list(userId);
+    }
+
+    public File get(Integer fileId) {
+        return fileMapper.get(fileId);
+    }
+
+    public void delete(Integer fileId) {
+        fileMapper.delete(fileId);
     }
 }

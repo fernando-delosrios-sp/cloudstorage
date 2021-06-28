@@ -20,11 +20,11 @@ public class UserService {
         this.hashService = hashService;
     }
 
-    public boolean isUsernameAvailable(String username) {
-        return userMapper.getUser(username) == null;
-    }
+    // public boolean isUsernameAvailable(String username) {
+    //     return userMapper.getUser(username) == null;
+    // }
 
-    public int createUser(User user) {
+    public int create(User user) {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
@@ -33,7 +33,7 @@ public class UserService {
         return userMapper.insert(new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstName(), user.getLastName()));
     }
 
-    public User getUser(String username) {
-        return userMapper.getUser(username);
+    public User get(String username) {
+        return userMapper.get(username);
     }
 }
