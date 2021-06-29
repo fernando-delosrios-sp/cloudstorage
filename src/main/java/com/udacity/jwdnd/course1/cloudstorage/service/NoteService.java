@@ -13,9 +13,13 @@ public class NoteService {
         this.noteMapper = noteMapper;
     }
 
-    public void save(Note note, Integer userId) {
-        note.setUserid(userId);
-        noteMapper.save(note);
+    public void save(String noteId, String noteTitle, String noteDescription, Integer userId) {
+        if (noteId == null || noteId.length() < 1) {
+            noteMapper.create(noteTitle, noteDescription, userId);
+        } else {
+            Note note = new Note(Integer.valueOf(noteId), noteTitle, noteDescription, userId);
+            noteMapper.save(note);
+        }
     }
 
     public Note[] list(Integer userId) {
