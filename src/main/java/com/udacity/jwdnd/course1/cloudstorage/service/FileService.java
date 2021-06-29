@@ -21,21 +21,17 @@ public class FileService {
         this.fileMapper = fileMapper;
     }
 
-    public void save(MultipartFile filedata, Integer userId) {
-        try {
-            Blob blob = new SerialBlob(filedata.getBytes());
+    public void save(MultipartFile fileData, Integer userId) throws Exception {
+        if (fileData.getSize() == 0) {
+            throw new Exception("Please select a valid file");
+        }
+        if (fileMapper.exists(fileData.getOriginalFilename())) {
+            throw new Exception("File already exists");
+        } else {
+            Blob blob = new SerialBlob(fileData.getBytes());
             byte bytes [] = blob.getBytes(1, (int) blob.length());
-            File file = new File(filedata.getOriginalFilename(), filedata.getContentType(), String.valueOf(filedata.getSize()), userId, bytes);
+            File file = new File(fileData.getOriginalFilename(), fileData.getContentType(), String.valueOf(fileData.getSize()), userId, bytes);
             fileMapper.save(file);
-        } catch (SerialException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 

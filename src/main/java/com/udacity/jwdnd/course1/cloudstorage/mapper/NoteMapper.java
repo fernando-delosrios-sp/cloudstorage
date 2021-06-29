@@ -20,7 +20,7 @@ public interface NoteMapper {
     @Select("SELECT * FROM NOTES where userid=#{userid}")
     Note[] list(Integer userid);
 
-    @Select("SELECT * FROM FILES where noteid=#{noteId}")
+    @Select("SELECT * FROM NOTES where noteid=#{noteId}")
     Note get(Integer noteId);
 
     @Delete("DELETE FROM NOTES where noteid=#{noteId}")

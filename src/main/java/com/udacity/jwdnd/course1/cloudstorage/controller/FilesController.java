@@ -34,9 +34,9 @@ public class FilesController {
     @RequestMapping("get/{id}")
     public @ResponseBody byte[] get(@PathVariable("id") Integer id, Model model, Principal principal, HttpServletResponse response) throws IOException {
         File file = fileService.get(id);
-        response.setContentType(file.getContenttype());
-        response.setHeader("Content-Disposition", "attachment; filename=" + file.getFilename());
-        return file.getFiledata();
+        response.setContentType(file.getContentType());
+        response.setHeader("Content-Disposition", "attachment; filename=" + file.getFileName());
+        return file.getFileData();
     }
 
     @RequestMapping("delete/{id}")
@@ -49,7 +49,14 @@ public class FilesController {
     @RequestMapping("put")
     public String put(@RequestParam("fileUpload") MultipartFile file, Model model, Principal principal, final RedirectAttributes redirectAttributes) {
         Integer userId = userService.get(principal.getName()).getUserId();
-        fileService.save(file, userId);
+        String error = null;
+        try {
+            fileService.save(file, userId);
+        } catch (Exception e) {
+            error = e.getMessage();
+        }
+
+        redirectAttributes.addFlashAttribute("saveError", error);
         redirectAttributes.addFlashAttribute("module", module);
         return "redirect:/home";
     }
