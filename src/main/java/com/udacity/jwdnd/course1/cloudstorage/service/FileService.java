@@ -1,11 +1,8 @@
 package com.udacity.jwdnd.course1.cloudstorage.service;
 
-import java.io.IOException;
 import java.sql.Blob;
-import java.sql.SQLException;
 
 import javax.sql.rowset.serial.SerialBlob;
-import javax.sql.rowset.serial.SerialException;
 
 import com.udacity.jwdnd.course1.cloudstorage.mapper.FileMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;

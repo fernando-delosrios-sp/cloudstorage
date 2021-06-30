@@ -6,12 +6,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.Description;
 
+@Description("Tests for User Signup, Login, and Unauthorized Access Restrictions")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class FirstTest {	
-	private LoginPage loginPage;
 	private SignupPage signupPage;
 	private HomePage homePage;
+	private LoginPage loginPage;
 
 	@LocalServerPort
 	protected int port;
@@ -35,12 +37,6 @@ class FirstTest {
 
 	@AfterEach
 	public void afterEach() {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		if (this.driver != null) {
 			driver.quit();
 		}
@@ -76,26 +72,4 @@ class FirstTest {
 		homePage.logout();
 		Assertions.assertEquals("Login", driver.getTitle());
 	}
-
-	// @Test
-	// public void getSignupPage() {
-	// 	loadPage("/signup");
-	// 	Assertions.assertEquals("Sign Up", driver.getTitle());
-	// }
-
-	// @Test
-	// public void signupOK() {
-	// 	loadPage("/signup");
-	// 	signupPage = new SignupPage(driver);
-	// 	signupPage.Signup("username", "password", "firstname", "lastname");
-	// 	Assertions.assertTrue(signupPage.isSuccess());
-	// }
-
-	// @Test
-	// public void signupKO() {
-	// 	loadPage("/signup");
-	// 	signupPage = new SignupPage(driver);
-	// 	signupPage.Signup("username", "", "firstname", "lastname");
-	// 	Assertions.assertTrue(signupPage.isError());
-	// }
 }

@@ -13,7 +13,7 @@ public interface CredentialMapper {
     @Insert("INSERT INTO CREDENTIALS (url, username, key, hashedpassword, userid) VALUES(#{url}, #{userName}, #{key}, #{hashedPassword}, #{userId})")
     void create(String url, String userName, String key, String hashedPassword, Integer userId);
 
-    @Update("UPDATE CREDENTIALS SET url=#{url}, username=#{userName}, hashedpassword=#{hashedPassword} WHERE credentialid=#{credentialId}")
+    @Update("UPDATE CREDENTIALS SET url=#{url}, username=#{userName}, key=#{key}, hashedpassword=#{hashedPassword} WHERE credentialid=#{credentialId}")
     void save(Credential credential);
 
     @Select("SELECT * FROM CREDENTIALS where userid=#{userId}")

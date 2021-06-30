@@ -9,12 +9,12 @@ public class Credential {
     private String hashedPassword;
     private Integer userId;
 
-    public Credential(Integer credentialId, String url, String userName, String key, String password, Integer userId) {
+    public Credential(Integer credentialId, String url, String userName, String key, String hashedPassword, Integer userId) {
         this.credentialId = credentialId;
         this.url = url;
         this.userName = userName;
         this.key = key;
-        this.password = password;
+        this.hashedPassword = hashedPassword;
         this.userId = userId;
     }
     
