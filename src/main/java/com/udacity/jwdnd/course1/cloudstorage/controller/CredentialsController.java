@@ -31,7 +31,13 @@ public class CredentialsController {
 
     @RequestMapping("delete/{id}")
     public String delete(@PathVariable("id") Integer id, Model model, Principal principal, final RedirectAttributes redirectAttributes) {
-        credentialService.delete(id);
+        try {
+            credentialService.delete(id);
+            redirectAttributes.addFlashAttribute("operationCredentialSuccess", "Credential successfully deleted");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("operationCredentialError", e.getMessage());
+        }
+        
         redirectAttributes.addFlashAttribute("module", module);
         return "redirect:/home";
     }
@@ -39,13 +45,18 @@ public class CredentialsController {
     @PostMapping()
     @RequestMapping("put")
     public String put(Model model, Principal principal, @RequestParam Map<String, String> queryMap, final RedirectAttributes redirectAttributes) {
-        Integer userId = userService.get(principal.getName()).getUserId();
-        String credentialId = queryMap.get("credentialId");
-        String credentialUrl = queryMap.get("url");
-        String credentialUserName = queryMap.get("username");
-        String credentialPassword = queryMap.get("password");
-        credentialService.save(credentialId, credentialUrl, credentialUserName, credentialPassword, userId);
-
+        try {
+            Integer userId = userService.get(principal.getName()).getUserId();
+            String credentialId = queryMap.get("credentialId");
+            String credentialUrl = queryMap.get("url");
+            String credentialUserName = queryMap.get("username");
+            String credentialPassword = queryMap.get("password");
+            credentialService.save(credentialId, credentialUrl, credentialUserName, credentialPassword, userId);
+            redirectAttributes.addFlashAttribute("operationCredentialSuccess", "Credential successfully saved");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("operationCredentialError", e.getMessage());
+        }
+        
         redirectAttributes.addFlashAttribute("module", module);
         return "redirect:/home";
     }

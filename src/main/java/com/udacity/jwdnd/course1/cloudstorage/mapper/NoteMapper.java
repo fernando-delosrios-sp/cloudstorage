@@ -16,12 +16,15 @@ public interface NoteMapper {
     @Update("UPDATE NOTES SET notetitle=#{noteTitle}, notedescription=#{noteDescription} WHERE noteid=#{noteId}")
     void save(Note note);
 
-    @Select("SELECT * FROM NOTES where userid=#{userId}")
+    @Select("SELECT * FROM NOTES WHERE userid=#{userId}")
     Note[] list(Integer userId);
 
-    @Select("SELECT * FROM NOTES where noteid=#{noteId}")
+    @Select("SELECT * FROM NOTES WHERE noteid=#{noteId}")
     Note get(Integer noteId);
 
-    @Delete("DELETE FROM NOTES where noteid=#{noteId}")
+    @Delete("DELETE FROM NOTES WHERE noteid=#{noteId}")
     void delete(Integer noteId);
+
+    @Select("SELECT EXISTS(SELECT 1 FROM NOTES WHERE notetitle=#{noteTitle})")
+    boolean exists(String noteTitle);
 }

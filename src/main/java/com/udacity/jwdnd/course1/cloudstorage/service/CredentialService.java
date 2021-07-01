@@ -19,7 +19,8 @@ public class CredentialService {
         this.encryptionService = encryptionService;
     }
 
-    public void save(String credentialId, String url, String userName, String password, Integer userId) {
+    public void save(String credentialId, String url, String userName, String password, Integer userId) throws Exception {
+        String error = null;
         String key;
         String hashedPassword;
 
@@ -30,6 +31,12 @@ public class CredentialService {
         hashedPassword = encryptionService.encryptValue(password, key);
 
         if (credentialId == null || credentialId.length() < 1) {
+            if (credentialMapper.exists(url, userName)) {
+                error = "Credential already exists";
+            }
+
+            if (error != null) throw new Exception(error);
+            
             credentialMapper.create(url, userName, key, hashedPassword, userId);
         } else {
             Credential credential = new Credential(Integer.valueOf(credentialId), url, userName, key, hashedPassword, userId);

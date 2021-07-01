@@ -28,8 +28,11 @@
                     <div class="tab-pane fade" th:classappend="${module == 'files' ? 'show active' : ''}" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
                         <form action="#" enctype="multipart/form-data" method="POST" th:action="@{/files/put}">
                             <div class="container">
-                                <div id="save-error-msg" th:if="${saveError}" th:text="${saveError}" class="row alert alert-danger">
+                                <div id="operation-file-error-msg" th:if="${operationFileError}" th:text="${operationFileError}" class="row alert alert-danger">
                                     Cannot save file
+                                </div>
+                                <div id="operation-file-success-msg" th:if="${operationFileSuccess}" th:text="${operationFileSuccess}" class="row alert alert-success">
+                                    File saved successfully
                                 </div>
                                 <div class="row" style="margin: 1em;">
                                     <div class="col-sm-2">
@@ -70,6 +73,12 @@
                         </button>
 
                         <div class="table-responsive">
+                            <div id="operation-note-error-msg" th:if="${operationNoteError}" th:text="${operationNoteError}" class="row alert alert-danger">
+                                Cannot save note
+                            </div>
+                            <div id="operation-note-success-msg" th:if="${operationNoteSuccess}" th:text="${operationNoteSuccess}" class="row alert alert-success">
+                                Note saved successfully
+                            </div>
                             <table class="table table-striped" id="noteTable">
                                 <thead>
                                     <tr>
@@ -128,6 +137,12 @@
                         </button>
 
                         <div class="table-responsive">
+                            <div id="operation-credential-error-msg" th:if="${operationCredentialError}" th:text="${operationCredentialError}" class="row alert alert-danger">
+                                Cannot save credential
+                            </div>
+                            <div id="operation-credential-success-msg" th:if="${operationCredentialSuccess}" th:text="${operationCredentialSuccess}" class="row alert alert-success">
+                                Note credential successfully
+                            </div>
                             <table class="table table-striped" th:object="${credentials}" id="credentialTable">
                                 <thead>
                                     <tr>

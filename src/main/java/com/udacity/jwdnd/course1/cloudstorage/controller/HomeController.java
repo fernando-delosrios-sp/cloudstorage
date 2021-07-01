@@ -13,10 +13,8 @@ import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
 public class HomeController {
     private final FileService fileService;
     private final UserService userService;
@@ -31,7 +29,7 @@ public class HomeController {
         this.credentialService = credentialService;
     }
 
-    @GetMapping()
+    @GetMapping("/home")
     public String get(Model model, Principal principal) {
         if (model.getAttribute("module") == null) model.addAttribute("module", defaultModule);
         if (model.getAttribute("saveError") == null) model.addAttribute("saveError", null);
@@ -44,5 +42,10 @@ public class HomeController {
         model.addAttribute("notes", notes);
         model.addAttribute("credentials", credentials);
         return "home";
+    }
+
+    @GetMapping("/")
+    public String redirect(Model model, Principal principal) {
+        return "redirect:/home";
     }
 }

@@ -34,7 +34,13 @@ public class NotesController {
 
     @RequestMapping("delete/{id}")
     public String delete(@PathVariable("id") Integer id, Model model, Principal principal, final RedirectAttributes redirectAttributes) {
-        noteService.delete(id);
+        try {
+            noteService.delete(id);
+            redirectAttributes.addFlashAttribute("operationNoteSuccess", "Note successfully deleted");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("operationNoteError", e.getMessage());
+        }
+        
         redirectAttributes.addFlashAttribute("module", module);
         return "redirect:/home";
     }
@@ -42,11 +48,16 @@ public class NotesController {
     @PostMapping()
     @RequestMapping("put")
     public String put(Model model, Principal principal, @RequestParam Map<String, String> queryMap, final RedirectAttributes redirectAttributes) {
-        Integer userId = userService.get(principal.getName()).getUserId();
-        String noteId = queryMap.get("noteId");
-        String noteTitle = queryMap.get("noteTitle");
-        String noteDescription = queryMap.get("noteDescription");
-        noteService.save(noteId, noteTitle, noteDescription, userId);
+        try {
+            Integer userId = userService.get(principal.getName()).getUserId();
+            String noteId = queryMap.get("noteId");
+            String noteTitle = queryMap.get("noteTitle");
+            String noteDescription = queryMap.get("noteDescription");
+            noteService.save(noteId, noteTitle, noteDescription, userId);
+            redirectAttributes.addFlashAttribute("operationNoteSuccess", "Note successfully deleted");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("operationNoteError", e.getMessage());
+        }
 
         redirectAttributes.addFlashAttribute("module", module);
         return "redirect:/home";

@@ -16,12 +16,15 @@ public interface CredentialMapper {
     @Update("UPDATE CREDENTIALS SET url=#{url}, username=#{userName}, key=#{key}, hashedpassword=#{hashedPassword} WHERE credentialid=#{credentialId}")
     void save(Credential credential);
 
-    @Select("SELECT * FROM CREDENTIALS where userid=#{userId}")
+    @Select("SELECT * FROM CREDENTIALS WHERE userid=#{userId}")
     Credential[] list(Integer userId);
 
-    @Select("SELECT * FROM CREDENTIALS where credentialid=#{credentialId}")
+    @Select("SELECT * FROM CREDENTIALS WHERE credentialid=#{credentialId}")
     Credential get(Integer credentialId);
 
-    @Delete("DELETE FROM CREDENTIALS where credentialid=#{credentialId}")
+    @Delete("DELETE FROM CREDENTIALS WHERE credentialid=#{credentialId}")
     void delete(Integer credentialId);
+
+    @Select("SELECT EXISTS(SELECT 1 FROM CREDENTIALS WHERE url=#{url} AND username=#{userName})")
+    boolean exists(String url, String userName);
 }

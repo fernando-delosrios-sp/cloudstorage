@@ -7,13 +7,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NoteService {
+    private final static int maxLength = 1000;
     private NoteMapper noteMapper;
 
     public NoteService(NoteMapper noteMapper) {
         this.noteMapper = noteMapper;
     }
 
-    public void save(String noteId, String noteTitle, String noteDescription, Integer userId) {
+    public void save(String noteId, String noteTitle, String noteDescription, Integer userId) throws Exception {
+        String error = null;
+        if (noteDescription.length() > maxLength) {
+            error = String.format("Note description exceeded maximum length (%d)", maxLength);
+        }
+
+        if (noteMapper.exists(noteTitle)) {
+            error = "Note already exists";
+        }
+
+        if (error != null) throw new Exception(error);
+        
         if (noteId == null || noteId.length() < 1) {
             noteMapper.create(noteTitle, noteDescription, userId);
         } else {

@@ -40,23 +40,28 @@ public class FilesController {
     }
 
     @RequestMapping("delete/{id}")
-    public String delete(@PathVariable("id") Integer id, Model model, Principal principal) {
-        fileService.delete(id);
+    public String delete(@PathVariable("id") Integer id, Model model, Principal principal, final RedirectAttributes redirectAttributes) {
+        try {
+            fileService.delete(id);
+            redirectAttributes.addFlashAttribute("operationFileSuccess", "File successfully deleted");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("operationFileError", e.getMessage());
+        }
+        
         return "redirect:/home";
     }
 
     @PostMapping()
     @RequestMapping("put")
     public String put(@RequestParam("fileUpload") MultipartFile file, Model model, Principal principal, final RedirectAttributes redirectAttributes) {
-        Integer userId = userService.get(principal.getName()).getUserId();
-        String error = null;
         try {
+            Integer userId = userService.get(principal.getName()).getUserId();
             fileService.save(file, userId);
+            redirectAttributes.addFlashAttribute("operationFileSuccess", "File successfully saved");
         } catch (Exception e) {
-            error = e.getMessage();
+            redirectAttributes.addFlashAttribute("operationFileError", e.getMessage());
         }
 
-        redirectAttributes.addFlashAttribute("saveError", error);
         redirectAttributes.addFlashAttribute("module", module);
         return "redirect:/home";
     }
