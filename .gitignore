@@ -1,2 +1,14 @@
+<<<<<<< HEAD
 .DS_Store
 /target
+=======
+apache-activemq-5.15.9/
+apache-activemq-5.15.9-bin.tar.gz
+.DS_Store
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+>>>>>>> Init
